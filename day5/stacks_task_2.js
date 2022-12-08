@@ -18,7 +18,6 @@ function getNumbers(instructions) {
 }
 
 function stacks() {
-    let task1resultArray = [];
     let task2resultArray = [];
     let stacks = {
         1: ['H', 'R', 'B', 'D', 'Z', 'F', 'L', 'S'],
@@ -37,19 +36,28 @@ function stacks() {
         //pop one box off FROM
         //push one (popped) box to TO
         //loop this action for AMOUNT
-        for (let i = 0; i < `${numbers.amount}`; i++) {
-            let popped = stacks[`${numbers.from}`].pop();
-            stacks[`${numbers.to}`].push(popped);
-        }
+        let sliceAmountNum =
+            stacks[`${numbers.from}`].length - `${numbers.amount}`;
+        let slice = stacks[`${numbers.from}`].slice(sliceAmountNum);
+        console.log(
+            stacks[`${numbers.to}`].splice(
+                sliceAmountNum,
+                `${numbers.amount}`,
+                slice
+            )
+        );
+        // console.log(slice);
     });
+
+    // console.log(stacks);
     //pushing the last element of each array (top of each pile of boxes) to task1resultArray
     //using Object.keys() for getting 'length' of object - so it's technically scalable
 
     for (let index = 1; index <= Object.keys(stacks).length; index++) {
         let length = stacks[index].length;
-        task1resultArray.push(stacks[index][length - 1]);
+        task2resultArray.push(stacks[index][length - 1]);
     }
-    console.log(task1resultArray.join(''));
+    console.log(task2resultArray.join(''));
     // TASK 1 ANSWER -- RNZLFZSJH
 }
 stacks();
